@@ -1,0 +1,19 @@
+def mpq_sort(data): 
+    b = minPriorityQueue() 
+    res = [] 
+    for i in data: 
+        b.insert(i) 
+    for i in data: 
+        res.append(b.delMin()) 
+def test_1000(benchmark): 
+    x = [random.randint(1,100000) for i in range(1000)] 
+    res = benchmark(mpq_sort,x) 
+    assert res == x.sort() 
+def test_2000(benchmark): 
+    x = [random.randint(1,100000) for i in range(2000)] 
+    res = benchmark(mpq_sort,x) 
+    assert res == x.sort() 
+def test_3000(benchmark): 
+    x = [random.randint(1,100000) for i in range(3000)] 
+    res = benchmark(mpq_sort,x) 
+    assert res == x.sort() 
