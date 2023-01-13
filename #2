@@ -1,0 +1,48 @@
+class minPriorityQueue(CompleteBinaryTree): 
+    '''
+    Insert the key into the back of the complete binary tree and adjust it upward. 
+    That is, the parent node larger than the key inserted this time is swapped with the node where the key is located. 
+    Repeat the operation until the root node is reached or there is no parent node larger than the key.
+    '''
+    def insert(self, key): 
+        super().insert(key) 
+        now = self.now
+        i = self.len - 1
+        while True: 
+            parent = self.parent(i) 
+            if parent == None or parent.key < now.key: 
+                break
+            temp = parent.key 
+            parent.key = now.key
+            now.key = temp
+            now = parent
+            i = (i-1)//2
+    '''
+    Returns the key of the root node, 
+    copies the key of the last node of the complete binary tree to the root node, and deletes the node. 
+    Start a lowering operation from the root node: 
+    move all nodes smaller than the key up until there is no such node or the leaf node is reached.
+    '''
+    def delMin(self): 
+        res = self[0].key 
+        self[0].key = self.now.key
+        self.delete() 
+        i = 0
+        while True: 
+            now = self[i] 
+            a = self.lchild(i) 
+            b = self.rchild(i) 
+            if a == None: 
+                break
+            elif b != None and b.key < a.key: 
+                a = b
+                i = i*2+2
+            else: 
+                i = i*2+1
+            if a.key < now.key: 
+                temp = a.key 
+                a.key = now.key 
+                now.key = temp
+            else: 
+                break
+        return res
