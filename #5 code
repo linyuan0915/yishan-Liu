@@ -1,0 +1,17 @@
+class minPriorityQueue(CompleteBinaryTree): 
+    def visualize(self): 
+        dot = Digraph('structure') 
+ 
+        now = self.head.next
+        for i in range(self.len): 
+ 
+            dot.node(str(i),str(now.key)) 
+            now = now.next 
+        for i in range(self.len): 
+            lchild = i*2+1
+            rchild = i*2+2
+            if lchild < self.len: 
+                dot.edge(str(i),str(lchild)) 
+            if rchild < self.len: 
+                dot.edge(str(i),str(rchild)) 
+        dot.view() 
