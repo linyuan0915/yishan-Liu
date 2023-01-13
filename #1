@@ -1,0 +1,34 @@
+class CompleteBinaryTree: 
+    def __init__(self): 
+        self.head = Node() 
+        self.now = self.head
+        self.len = 0
+    def insert(self, key): 
+        self.now.next = Node(key=key) 
+        self.now = self.now.next
+        self.len += 1
+    def delete(self): 
+        del self.now
+        self.len -= 1
+        self.now = self[self.len-1] 
+        if self.now == None: 
+            self.now = self.head
+        self.now.next = None
+    def __getitem__(self, index): 
+        i = 0
+        if index == -1: 
+            return None
+        temp = self.head.next
+        while i < index: 
+            try: 
+                temp = temp.next 
+            except: 
+                return None
+            i += 1
+        return temp
+    def parent(self,index): 
+        return self[(index-1)//2] 
+    def lchild(self,index): 
+        return self[index*2+1] 
+    def rchild(self,index): 
+        return self[index*2+2] 
